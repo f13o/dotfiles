@@ -1,7 +1,9 @@
 alias c=claude
+alias k=kubectl
 alias n=nvim
 alias npm=pnpm
 alias npx=pnpx
+alias tailscale="/Applications/Tailscale.app/Contents/MacOS/Tailscale"
 alias ts="/Applications/Tailscale.app/Contents/MacOS/Tailscale"
 alias tf=terraform
 alias venv="source .venv/bin/activate"
