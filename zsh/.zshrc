@@ -22,3 +22,7 @@ eval "$(rbenv init -)"
 
 # z init
 eval "$(zoxide init zsh)"
+
+
+# Editor
+export EDITOR=nvim
