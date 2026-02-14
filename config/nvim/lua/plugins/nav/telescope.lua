@@ -44,17 +44,17 @@ return {
     telescope.load_extension('fzf')
     telescope.load_extension('live_grep_args')
 
-
     local builtin = require('telescope.builtin')
 
-    local opts = { 
-        cwd = vim.fn.stdpath('config') ,
-        prompt_title = vim.fn.stdpath('config'),
-        file_ignore_patterns = { '^.git/' },
-        }
+    local opts = {
+      cwd = vim.fn.stdpath('config'),
+      prompt_title = vim.fn.stdpath('config'),
+      file_ignore_patterns = { '^.git/' },
+    }
 
-    vim.keymap.set('n','<leader>nc', function() builtin.find_files(opts) end, {desc = "Search [N]eovim [C]onfig files"})
-
+    vim.keymap.set('n', '<leader>nc', function()
+      builtin.find_files(opts)
+    end, { desc = 'Search [N]eovim [C]onfig files' })
   end,
   keys = function()
     local builtin = require('telescope.builtin')
