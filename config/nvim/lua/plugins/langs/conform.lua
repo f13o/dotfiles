@@ -9,7 +9,7 @@ return {
         go = { 'gofmt' },
         html = { 'prettierd' },
         helm = { 'helm_ls' },
-        json = { 'prettierd' },
+        json = { 'biome' },
         lua = { 'stylua' },
         python = { 'ruff_fix', 'ruff_format', 'ruff_organize_imports' },
       },
