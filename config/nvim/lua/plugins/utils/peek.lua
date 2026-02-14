@@ -4,7 +4,7 @@ return {
   build = 'deno task --quiet build:fast',
   config = function()
     local peek = require('peek')
-    peek.setup({ app = 'browser' })
+    peek.setup()
 
     local toggle_peek = function()
       if peek.is_open() then
