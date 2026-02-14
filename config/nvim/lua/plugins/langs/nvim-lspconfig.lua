@@ -23,8 +23,17 @@ return {
     })
 
     -- JSON
+    vim.filetype.add({
+      extension = {
+        ejson = 'json', -- Treats .ejson files as 'json' filetype
+        hujson = 'jsonc', -- Treats .hujson files as 'jsonc' filetype
+      },
+    })
 
-    vim.lsp.config('jsonls', {})
+    vim.lsp.config('biome', {
+      capabilities = capabilities,
+      filetypes = { 'json', 'jsonc' },
+    })
 
     -- Lua
     vim.lsp.config('lua_ls', {
