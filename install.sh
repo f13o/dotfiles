@@ -97,7 +97,8 @@ if [ "$install_ui" = true ]; then
     resvg \
     imagemagick \
     sevenzip \
-    poppler
+    poppler \
+    deno ## needed for Peek markdown preview
 fi
 
 echo "Installation complete!"
