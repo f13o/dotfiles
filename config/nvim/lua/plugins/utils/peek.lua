@@ -6,6 +6,12 @@ return {
     local peek = require('peek')
     peek.setup()
 
+    vim.filetype.add({
+      extension = {
+        j2 = 'markdown', -- Treats .j2 files as 'markdown' filetype
+      },
+    })
+
     local toggle_peek = function()
       if peek.is_open() then
         peek.close()
