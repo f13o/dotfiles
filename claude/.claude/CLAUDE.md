@@ -2,17 +2,19 @@
 
 - NEVER add docstrings
 - NEVER add comments for code sections or steps
-- Avoid comments as much as possible, but include them if they explain edge-cases from external systems, or instructions that human gave you explicitly
+- Avoid comments as much as possible, but include them if they explain edge-cases from
+  external systems, or instructions that human gave you explicitly
 - NEVER user emojis
 
-
-**Tradeoff:** These guidelines bias toward caution over speed. For trivial tasks, use judgment. 
+**Tradeoff:** These guidelines bias toward caution over speed. For trivial tasks, use
+judgment.
 
 ## 1. Think Before Coding
 
 **Don't assume. Don't hide confusion. Surface tradeoffs.**
 
 Before implementing:
+
 - State your assumptions explicitly. If uncertain, ask.
 - If multiple interpretations exist, present them - don't pick silently.
 - If a simpler approach exists, say so.
@@ -35,12 +37,14 @@ Ask yourself: "Would a senior engineer say this is overcomplicated?" If yes, sim
 **Touch only what you must. Clean up only your own mess.**
 
 When editing existing code:
+
 - Don't "improve" adjacent code, comments, or formatting.
 - Don't refactor things that aren't broken.
 - Match existing style, even if you'd do it differently.
 - If you notice unrelated dead code, mention it - don't delete it.
 
 When your changes create orphans:
+
 - Remove imports/variables/functions that YOUR changes made unused.
 - Don't remove pre-existing dead code unless asked.
 
@@ -49,7 +53,8 @@ The test: Every changed line should trace directly to the user's request.
 # Language Specific Guidelines
 
 ## Python
-- Always suggest pythonic code according to the latest standards
-- Prefer "for loops" over nested "list or dict comprehensions", specially when there is conditional logic
-- Ternary operator are fine only if conditions are simple
 
+- Always suggest pythonic code according to the latest standards
+- Prefer "for loops" over nested "list or dict comprehensions", specially when there is
+  conditional logic
+- Ternary operator are fine only if conditions are simple
