@@ -2,11 +2,12 @@
 name: roast
 description: Analyze a skill for ambiguities, missing validation, unclear instructions, and potential LLM confusion
 disable-model-invocation: true
-allowed-tools: Read, Glob
+allowed-tools: Read, Glob, Grep
 argument-hint: [skill-name or path]
 ---
 
-Analyze the skill "$0" for precision issues and potential ambiguities.
+Analyze the skill "$0" for precision issues and potential ambiguities. Validate
+arguments, locate and read the skill file, then evaluate against focus areas.
 
 # Validation Rules
 
@@ -25,138 +26,142 @@ If the skill path/name is provided, continue with analysis.
 Search in this order:
 
 1. If `$0` is an absolute path, read that file directly
-1. If `$0` is a relative path, resolve from current directory
+1. If `$0` is a relative path:
+   - If it ends in `.md`, resolve relative to current working directory and read that
+     file
+   - Otherwise, treat as directory, resolve relative to current working directory, and
+     append `/SKILL.md`
 1. If `$0` is a skill name (no path separators):
-   - Check `.claude/skills/$0/SKILL.md`
-   - Check `~/.claude/skills/$0/SKILL.md`
+   - Check `.claude/skills/$0/SKILL.md` (relative to current working directory)
 
 If skill not found in any location:
 
-- Exit with error: "Skill '$0' not found in .claude/skills/ or ~/.claude/skills/"
+- Exit with error: "Skill '$0' not found in .claude/skills/"
 - DO NOT proceed with analysis
 
-# Analysis Checklist
+# Analysis Focus
 
-Once the skill file is successfully read, analyze for:
+Once the skill file is successfully read, evaluate:
 
-## Input Validation Issues
+## Core Questions
 
-- [ ] Does the skill accept arguments but fail to validate they exist?
-- [ ] Does it use `$0`, `$1`, etc. without checking if they're provided?
-- [ ] Does it use `$ARGUMENTS` without verifying it's not empty?
-- [ ] Should it exit early if required arguments are missing?
-- [ ] Does it do "best effort" inference when it should fail fast?
+1. **Is it accurate enough?**
 
-## Ambiguous Instructions
+   - Does the skill achieve its stated purpose?
+   - Are there ambiguities that could cause wrong outcomes?
 
-- [ ] Are steps vague or open to multiple interpretations?
-- [ ] Does it say "check" or "verify" without defining success criteria?
-- [ ] Does it use relative terms like "large", "complex", "many" without thresholds?
-- [ ] Are conditionals unclear (when to do X vs Y)?
-- [ ] Does it assume context the LLM might not have?
+1. **Would more precision improve results?**
 
-## Missing Constraints
+   - Where does vagueness cause LLM to guess incorrectly?
+   - What constraints would meaningfully improve success rate?
 
-- [ ] Should certain tools be restricted via `allowed-tools` but aren't?
-- [ ] Should `disable-model-invocation: true` be set (for side effects) but isn't?
-- [ ] Are destructive operations possible without explicit guards?
-- [ ] Should it use `context: fork` to isolate side effects?
+1. **What's the trade-off?**
 
-## Unclear Scope
+   - What flexibility is lost with added precision?
+   - Is the restriction worth the gained certainty?
 
-- [ ] Is the goal/outcome of the skill clear?
-- [ ] Does it know when to stop?
-- [ ] Are success/failure conditions defined?
-- [ ] Does it handle edge cases explicitly?
+1. **Is anything over-complicated?**
 
-## Tool Usage Precision
+   - Are there overly restrictive statements that could backfire?
+   - Where does excessive precision create brittleness or block valid use cases?
 
-- [ ] Does it specify exact tool parameters or leave them vague?
-- [ ] Are file paths, patterns, or queries clearly defined?
-- [ ] Does it say "find relevant files" without criteria?
-- [ ] Does it use "analyze" or "investigate" without specific steps?
+## What Could Actually Go Wrong
 
-## Frontmatter Issues
+Focus on practical failure modes:
 
-- [ ] Is `description` clear enough for auto-invocation decisions?
-- [ ] Is `argument-hint` present if arguments are used?
-- [ ] Are `allowed-tools` appropriately scoped?
-- [ ] Should `user-invocable` be false but isn't?
+- **Wrong execution**: Instructions that could be interpreted multiple ways, leading to
+  different actions
+- **Silent failures**: Missing validation that causes errors to go unnoticed
+- **Scope creep**: Unbounded operations that do more than intended
+- **Unsafe operations**: Destructive actions without guards
+- **LLM confusion**: Ambiguity where the model genuinely can't tell what's expected
+- **Over-restriction**: Excessive precision that blocks valid use cases or creates
+  brittleness
 
-## LLM Confusion Points
+Ignore edge cases that don't affect the skill's intention or theoretical issues that
+won't occur in practice.
 
-- [ ] Could the LLM reasonably interpret instructions differently?
-- [ ] Are there implicit assumptions that need to be explicit?
-- [ ] Does it rely on "common sense" that varies between models?
-- [ ] Are pronouns or references ambiguous?
+# Red Flags
+
+Look for these patterns that cause real problems:
+
+1. **Best-effort inference**: Guessing instead of failing when inputs missing
+1. **Vague scope**: Unbounded operations without clear stopping points
+1. **Ambiguous conditionals**: "If needed" without criteria for when that is
+1. **Silent failures**: Not validating preconditions that will cause errors later
+1. **Tool permission gaps**: Unrestricted tools for specific tasks
+1. **Over-specification**: Hardcoded patterns/values that prevent valid alternatives
 
 # Output Format
 
-Present findings as:
+Present findings as a brief summary:
 
-## Critical Issues (Must Fix)
+## Assessment
 
-- Missing argument validation
-- Ambiguous core logic
-- Unsafe operations without guards
+**Accuracy**: [Sufficient | Needs Work] **Intent**: (One-line description of what skill
+is trying to accomplish)
 
-## Warnings (Should Fix)
+## What Could Go Wrong
 
-- Vague instructions
-- Missing constraints
-- Unclear success criteria
+For each practical issue found:
 
-## Suggestions (Consider)
+1. Issue #number
 
-- Potential edge cases
-- Stylistic improvements
-- Additional safeguards
+- **Line X**: Brief problem description
+- **Impact**: How this affects the skill's outcome
+- **Fix**: Concise suggestion (1 line)
+- **Trade-off**: What flexibility is lost (if any)
 
-## Score
+## Over-Complicated Statements
 
-Rate precision on scale: **[Low|Medium|High] Precision**
+Identify overly restrictive or brittle statements found:
 
-For each issue, provide:
+- **Line X**: What's too restrictive
+- **Backfire risk**: How this could block valid use cases
+- **Simplify**: Suggest looser alternative
 
-1. Specific line/section with the problem
-1. Why it's problematic for an LLM
-1. Concrete fix suggestion
+## Performance Optimizations
 
-# Anti-Patterns to Flag
+Optional precision improvements that make LLM execution more certain but aren't
+required:
 
-1. **Best-effort inference**: Guessing what user meant instead of validating input
-1. **Vague scope**: "Analyze the codebase" without boundaries
-1. **Implicit assumptions**: Assuming file locations, naming conventions, or context
-1. **Undefined success**: No clear end state or completion criteria
-1. **Silent failures**: Not exiting when preconditions aren't met
-1. **Ambiguous conditionals**: "If needed" or "when appropriate" without criteria
-1. **Tool permission gaps**: Allowing Bash without restrictions when specific commands
-   expected
+- Brief suggestion with trade-off noted
 
-# Example Issues
+Keep observations focused and concise. Skip theoretical issues.
 
-**Bad**: "Fix the issue in $0"
+# Examples
 
-- Problem: No validation that $0 exists; "issue" is undefined
-- Fix: "If $0 is empty, exit with error. Read file $0 and identify the specific issue
-  described in the request."
+**Problematic**: "Fix the issue in $0"
 
-**Bad**: "Find relevant files"
+- Impact: "issue" undefined, LLM will guess what to fix
+- Fix: "Read $0 and fix [specific thing]"
 
-- Problem: "Relevant" is subjective
-- Fix: "Find all Python files matching pattern \*\*/\*\_test.py using Glob"
+**Problematic**: "Find relevant files"
 
-**Bad**: "Check if tests pass"
+- Impact: "Relevant" is subjective, inconsistent results
+- Fix: Only if specificity matters for outcome - otherwise fine for exploratory tasks
 
-- Problem: No validation logic or exit behavior
-- Fix: "Run pytest. If exit code is non-zero, report failures and exit. If exit code is
-  0, report success."
+**Problematic**: "Check if tests pass"
+
+- Impact: No failure handling, LLM might just report instead of analyzing
+- Fix: Only if subsequent steps depend on pass/fail - otherwise "check" is adequate
+
+**Over-complicated**: "Use Grep with pattern '^test\_.\*.py$' and output_mode
+'files_with_matches' to find test files"
+
+- Backfire: Blocks alternative test file patterns like `*_test.py` or `test*.py`
+- Simplify: "Find test files" (let LLM choose approach) or "Use Glob with pattern
+  '\*\*/*test*.py'"
 
 # Execution
 
 1. Validate `$0` is provided (exit if not)
 1. Locate the skill file (exit if not found)
 1. Read the SKILL.md file
-1. Analyze against all checklist items
-1. Present findings in the output format above
-1. Provide actionable fixes for each issue
+1. Identify what the skill is trying to accomplish
+1. Find all practical issues that could cause wrong outcomes (report all significant
+   issues found, typically 2-5, but could be less)
+1. Identify over-complicated or overly restrictive statements (report all found,
+   typically 2-3)
+1. Note any performance optimizations (optional precision)
+1. Present concise summary
