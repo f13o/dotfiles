@@ -9,9 +9,9 @@ argument-hint: [skill-name or path]
 Analyze the skill "$0" for precision issues and potential ambiguities. Validate
 arguments, locate and read the skill file, then evaluate against focus areas.
 
-# Validation Rules
+# Steps 1-2: Validate and Read
 
-## 1. Argument Validation
+## Step 1: Argument Validation
 
 CRITICAL: If `$0` is empty or not provided:
 
@@ -21,7 +21,7 @@ CRITICAL: If `$0` is empty or not provided:
 
 If the skill path/name is provided, continue with analysis.
 
-## 2. Locate the Skill
+## Step 2: Locate and Read the Skill
 
 Search in this order:
 
@@ -39,7 +39,7 @@ If skill not found in any location:
 - Exit with error: "Skill '$0' not found in .claude/skills/"
 - DO NOT proceed with analysis
 
-# Analysis Focus
+# Steps 3-6: Analyze
 
 Once the skill file is successfully read, evaluate:
 
@@ -92,7 +92,7 @@ Look for these patterns that cause real problems:
 1. **Tool permission gaps**: Unrestricted tools for specific tasks
 1. **Over-specification**: Hardcoded patterns/values that prevent valid alternatives
 
-# Output Format
+# Steps 7-9: Output
 
 Present findings as a brief summary:
 
@@ -129,6 +129,9 @@ required:
 
 Keep observations focused and concise. Skip theoretical issues.
 
+**Step 9**: After presenting the summary, ask the user which issues to fix and offer an
+interactive questionnaire for each selected issue.
+
 # Examples
 
 **Problematic**: "Fix the issue in $0"
@@ -152,16 +155,3 @@ Keep observations focused and concise. Skip theoretical issues.
 - Backfire: Blocks alternative test file patterns like `*_test.py` or `test*.py`
 - Simplify: "Find test files" (let LLM choose approach) or "Use Glob with pattern
   '\*\*/*test*.py'"
-
-# Execution
-
-1. Validate `$0` is provided (exit if not)
-1. Locate the skill file (exit if not found)
-1. Read the SKILL.md file
-1. Identify what the skill is trying to accomplish
-1. Find all practical issues that could cause wrong outcomes (report all significant
-   issues found, typically 2-5, but could be less)
-1. Identify over-complicated or overly restrictive statements (report all found,
-   typically 2-3)
-1. Note any performance optimizations (optional precision)
-1. Present concise summary
