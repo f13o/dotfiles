@@ -14,6 +14,7 @@ return {
         lua = { 'stylua' },
         markdown = { 'mdformat' },
         python = { 'ruff_fix', 'ruff_format', 'ruff_organize_imports' },
+        toml = { 'taplo' },
       },
       format_on_save = { lsp_format = 'fallback' },
       formatters = {
