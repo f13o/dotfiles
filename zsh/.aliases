@@ -11,3 +11,8 @@ alias y=yazi
 
 # zoxide as cd
 alias cd=z
+
+# git
+alias gs="git status"
+alias gc="git checkout"
+alias gcm="git commit"
