@@ -35,3 +35,7 @@ case ":$PATH:" in
 esac
 # pnpm end
 . "/Users/francis/.deno/env"
+
+fpath+=~/.zfunc; autoload -Uz compinit; compinit
+
+zstyle ':completion:*' menu select
