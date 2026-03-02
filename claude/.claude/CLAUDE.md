@@ -58,3 +58,4 @@ The test: Every changed line should trace directly to the user's request.
 - Prefer "for loops" over nested "list or dict comprehensions", specially when there is
   conditional logic
 - Ternary operator are fine only if conditions are simple
+- When using strigs for conditinals, always prefer StrEnum over hard-coded strings
