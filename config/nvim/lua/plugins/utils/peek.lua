@@ -4,7 +4,7 @@ return {
   build = 'deno task --quiet build:fast',
   config = function()
     local peek = require('peek')
-    peek.setup()
+    peek.setup({ app = 'browser' })
 
     vim.filetype.add({
       extension = {
