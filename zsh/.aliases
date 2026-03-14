@@ -17,3 +17,6 @@ alias gs="git status"
 alias gc="git checkout"
 alias gcm="git commit"
 alias gd="git diff"
+
+# Go binaries
+alias jot=$(go env GOPATH)/bin/jot
