@@ -52,12 +52,14 @@ available plans in `qa/` and ask the user to pick one.
 
    e. Move to the next step. Do NOT fix anything during execution -- just record.
 
-1. **Generate the findings report.** After all steps are done (or user says stop),
-   update `qa/<plan-name>/QA.md`:
+1. **Generate the findings report.** After all steps are done (or user says stop), write
+   a report into `qa/<plan-name>/reports/`:
 
-   a. Check each step's checkbox (`- [x]` for pass, leave `- [ ]` for fail/skip).
+   a. Duplicate the `QA.md` file into the `qa/<plan-name>/reports/YYYY-MM-DD.md`
 
-   b. Replace the `## Findings` section with a structured report:
+   b. Check each step's checkbox (`- [x]` for pass, leave `- [ ]` for fail/skip).
+
+   c. Replace the `## Findings` section with a structured report:
 
    ```markdown
    ## Findings
@@ -84,7 +86,7 @@ available plans in `qa/` and ask the user to pick one.
    | N | <step summary> | <reason> |
    ```
 
-   c. If all steps passed and no UX issues, write:
+   d. If all steps passed and no UX issues, write:
 
    ```markdown
    ## Findings
