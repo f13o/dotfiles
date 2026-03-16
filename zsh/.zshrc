@@ -39,3 +39,5 @@ esac
 fpath+=~/.zfunc; autoload -Uz compinit; compinit
 
 zstyle ':completion:*' menu select
+
+export PATH="$PATH:$(go env GOPATH)/bin" >> ~/.zshrc
