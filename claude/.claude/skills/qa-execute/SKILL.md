@@ -18,8 +18,13 @@ available plans in `qa/` and ask the user to pick one.
    same folder. If the plan doesn't exist, list available `qa/*/QA.md` and ask the user
    to choose.
 
-1. **Show overview.** Print the plan title, overview, and prerequisites. Ask the user to
-   confirm prerequisites are met before continuing.
+1. **Create the run folder.** Create `qa/<plan-name>/runs/YYYY-MM-DD-HHmm/` using the
+   current date and time. Copy `QA.md` and all other files from `qa/<plan-name>/` (except
+   the `runs/` directory) into the run folder. All work during this execution happens
+   inside the run folder -- the template folder is never modified.
+
+1. **Show overview.** Print the plan title, overview, prerequisites, and the run folder
+   path. Ask the user to confirm prerequisites are met before continuing.
 
 1. **Walk through steps sequentially.** For each step in the plan:
 
@@ -52,52 +57,46 @@ available plans in `qa/` and ask the user to pick one.
 
    e. Move to the next step. Do NOT fix anything during execution -- just record.
 
-1. **Generate the findings report.** After all steps are done (or user says stop), write
-   a report into `qa/<plan-name>/reports/`:
+1. **Update the run's QA.md.** After all steps are done (or user says stop), update the
+   `QA.md` inside the run folder:
 
-   a. Duplicate the `QA.md` file into the `qa/<plan-name>/reports/YYYY-MM-DD.md`
+   a. Check each step's checkbox (`- [x]` for pass, leave `- [ ]` for fail/skip).
 
-   b. Check each step's checkbox (`- [x]` for pass, leave `- [ ]` for fail/skip).
+   b. Append a `## Findings` section at the end with the execution results.
 
-   c. Replace the `## Findings` section with a structured report:
+1. **Write `REPORT.md`.** Create `REPORT.md` in the run folder with a structured report:
 
    ```markdown
-   ## Findings
+   # QA Report: <Plan Name>
 
    **Executed:** YYYY-MM-DD
+   **Run:** `runs/YYYY-MM-DD-HHmm/`
    **Result:** X/Y passed, Z failed, W skipped, U UX issues
 
-   ### Failures
+   ## Failures
 
    | # | Step | Expected | Actual |
    |---|------|----------|--------|
    | N | <step summary> | <expected from plan> | <what user reported> |
 
-   ### UX Issues
+   ## UX Issues
 
    | # | Step | Observation |
    |---|------|-------------|
    | N | <step summary> | <user's confusion, question, or friction verbatim> |
 
-   ### Skipped
+   ## Skipped
 
    | # | Step | Reason |
    |---|------|--------|
    | N | <step summary> | <reason> |
    ```
 
-   d. If all steps passed and no UX issues, write:
+   Always include all three sections. When a section has no entries, keep the table header
+   and write a single row: `| - | None | - |` (or equivalent for the column count).
 
-   ```markdown
-   ## Findings
-
-   **Executed:** YYYY-MM-DD
-   **Result:** All Y steps passed.
-   ```
-
-1. **Show summary.** Print the pass/fail/skip counts and list failures with their step
-   numbers. Remind the user that findings are saved in the QA.md and can be used as
-   input for a fix plan.
+1. **Show summary.** Print the pass/fail/skip counts, list failures with their step
+   numbers, and show the run folder path.
 
 # Guidelines
 
@@ -106,13 +105,13 @@ available plans in `qa/` and ask the user to pick one.
 - If the user says "stop" or "abort" mid-plan, generate the report with what you have so
   far. Mark remaining steps as skipped with reason "aborted".
 - If a step fails, ask the user if they want to continue or stop.
-- Preserve any existing content in Findings only if the user is re-running specific
-  sections. On a full run, replace the entire Findings section.
-
 # Completion
 
 Execution is complete when:
 
-- All steps have been walked through (or user aborted)
-- `qa/<plan-name>/QA.md` is updated with checkboxes and Findings section
-- Summary is shown to the user
+- Run folder `qa/<plan-name>/runs/YYYY-MM-DD-HHmm/` exists with all files
+- The run's `QA.md` has checkboxes checked and Findings section appended
+- `REPORT.md` is written in the run folder (always include all sections -- Failures, UX
+  Issues, Skipped -- even when empty, so the report is explicitly "no failures" rather
+  than silently omitting them)
+- Summary is shown to the user with the run folder path

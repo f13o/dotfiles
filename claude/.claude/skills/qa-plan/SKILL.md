@@ -28,6 +28,9 @@ glob patterns to read.
    project root (cwd). Create the directory if it doesn't exist. If a `QA.md` already
    exists there, read it first -- you are updating, not replacing from scratch.
 
+   This folder is the **template folder**. It is never modified by `/qa-execute`. It
+   contains the plan and any prerequisite files that get copied into each run.
+
 1. **Write `QA.md`.** The plan file must follow this structure:
 
    ```markdown
@@ -39,11 +42,7 @@ glob patterns to read.
 
    - What must exist before testing (config files, services, data)
    - Environment setup needed
-
-   ## Fixtures
-
-   List any files in this QA folder that support the test (templates, sample configs, etc).
-   If fixtures are needed, create them as sibling files in the same `qa/<plan-name>/` folder.
+   - List any template files in this folder that will be copied into each run
 
    ## Steps
 
@@ -57,15 +56,12 @@ glob patterns to read.
    ### B. <Section name>
 
    ...
-
-   ## Findings
-
-   _(populated during execution by /qa-execute)_
    ```
 
-1. **Create fixture files** if the plan needs them. These are minimal files that help
-   the human tester: sample configs, TOML templates, scripts to set up/teardown state.
-   Place them in `qa/<plan-name>/` alongside `QA.md`.
+1. **Create prerequisite/fixture files** if the plan needs them. These are minimal files
+   that help the human tester: sample configs, TOML templates, scripts to set up/teardown
+   state. Place them in `qa/<plan-name>/` alongside `QA.md`. They serve as templates that
+   `/qa-execute` will copy into each run folder.
 
 1. **Report.** Show the user the plan location and a summary of sections and step count.
 
@@ -79,7 +75,7 @@ glob patterns to read.
 - The plan must be self-contained: a tester with access to the codebase and the
   prerequisites should be able to execute it without reading specs.
 - Keep steps concrete -- use actual command examples, not abstract descriptions.
-- When updating an existing plan, preserve the Findings section content.
+- When updating an existing plan, do not touch the `runs/` directory.
 
 # Completion
 
