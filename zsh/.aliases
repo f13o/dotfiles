@@ -23,3 +23,6 @@ alias jot="$(go env GOPATH)/bin/jots new"
 
 # LOC
 alias loc='find . -name "*.py" -not -path "*/__pycache__/*" -not -path "*/tests/*" -not -path "*/.venv/*" -not -name "*.pyc" | xargs wc -l'
+
+# jp
+alias jp="say -v Kyoko"
