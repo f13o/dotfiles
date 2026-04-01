@@ -1,6 +1,7 @@
 ---
 name: codex-adversary
 description: Use OpenAI Codex as an adversarial reviewer. Invoke when you want a second opinion, adversarial critique, or red-team feedback on code, designs, or ideas from a different model.
+allowed-tools: "Read, Bash(codex *), Bash(CODEX_OUT=$(mktemp *) && codex *), Bash(CODEX_OUT=$(mktemp *); codex *)"
 ---
 
 You have access to **Codex CLI** (`codex`), an OpenAI-powered coding agent you can run

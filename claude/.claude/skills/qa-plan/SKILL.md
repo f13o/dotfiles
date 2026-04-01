@@ -2,7 +2,7 @@
 name: qa-plan
 description: Create or update a QA plan based on specs. Use when the user wants to build a manual QA test plan for a workflow, feature, or spec.
 disable-model-invocation: true
-argument-hint: [plan-name] [spec-paths...]
+argument-hint: "[plan-name] [spec-paths...]"
 ---
 
 Create a QA plan for manual testing based on the given specs.

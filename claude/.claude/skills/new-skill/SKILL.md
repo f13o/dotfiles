@@ -2,8 +2,8 @@
 name: new-skill
 description: Create a new Claude Code skill with proper structure and documentation
 disable-model-invocation: true
-allowed-tools: Write, Bash(mkdir -p *), AskUserQuestion
-argument-hint: [skill-name] [description]
+allowed-tools: "Write, Bash(mkdir -p *), AskUserQuestion"
+argument-hint: "[skill-name] [description]"
 ---
 
 Create a new Claude Code skill.
