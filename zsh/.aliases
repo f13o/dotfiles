@@ -23,6 +23,10 @@ alias jot="$(go env GOPATH)/bin/jots new"
 
 # LOC
 alias loc='find . -name "*.py" -not -path "*/__pycache__/*" -not -path "*/tests/*" -not -path "*/.venv/*" -not -name "*.pyc" | xargs wc -l'
+alias path='echo $PATH | tr ":" "\n"'
 
 # jp
 alias jp="say -v Kyoko"
+
+# Agnostify project agent config
+alias agnostify="~/ws/p/dotfiles/utils/ai/agnostify.sh"
