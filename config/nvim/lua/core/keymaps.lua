@@ -38,11 +38,10 @@ keymap('n', '<ESC>', ':noh<CR>', { desc = 'Search - Clear' })
 
 -- Selection
 
-keymap('n', '<D-a>', 'ggVG', { desc = 'Select All'})
+keymap('n', '<D-a>', 'ggVG', { desc = 'Select All' })
 
 -- Files
-keymap('n', 'yfp',':let @+ = expand(\'%\')<CR>', { desc = '[Y]ank relative [F]ile [P]ath'})
-
+keymap('n', 'yfp', ':let @+ = expand(\'%\')<CR>', { desc = '[Y]ank relative [F]ile [P]ath' })
 
 -- Indentation
 
@@ -56,12 +55,12 @@ keymap('n', 'gd', vim.lsp.buf.definition, { desc = 'LSP - [G]o to [D]efinition' 
 
 -- Lazy
 
-keymap('n', '<leader>lu', ':Lazy update<CR>', { desc = 'Lazy Update'})
+keymap('n', '<leader>lu', ':Lazy update<CR>', { desc = 'Lazy Update' })
 
 -- Write, quit, reload
 keymap('n', '<D-s>', ':w<CR>', { desc = 'Write' })
 keymap('i', '<D-s>', '<Esc>:w<CR>', { desc = 'Write' })
 
 -- Lua Fun Stuff
-keymap("n", "<leader>x", "<cmd>.lua<CR>", { desc = "Execute the current line" })
-keymap("n", "<leader><leader>x", "<cmd>source %<CR>", { desc = "Execute the current file" })
+keymap('n', '<leader>x', '<cmd>.lua<CR>', { desc = 'Execute the current line' })
+keymap('n', '<leader><leader>x', '<cmd>source %<CR>', { desc = 'Execute the current file' })
