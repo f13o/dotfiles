@@ -61,6 +61,13 @@ keymap('n', '<leader>lu', ':Lazy update<CR>', { desc = 'Lazy Update' })
 keymap('n', '<D-s>', ':w<CR>', { desc = 'Write' })
 keymap('i', '<D-s>', '<Esc>:w<CR>', { desc = 'Write' })
 
+-- Markdown
+keymap('n', '<D-x>', function()
+  require('custom.toggle-task').toggle()
+end, { desc = 'Toggle Task checkbo[x]' })
+keymap('v', '<D-x>', function()
+  require('custom.toggle-task').toggle_visual()
+end, { desc = 'Toggle Task checkbo[x]' })
+
 -- Lua Fun Stuff
-keymap('n', '<leader>x', '<cmd>.lua<CR>', { desc = 'Execute the current line' })
 keymap('n', '<leader><leader>x', '<cmd>source %<CR>', { desc = 'Execute the current file' })
