@@ -68,8 +68,10 @@ if [ "$install_dev" = true ]; then
     mise \
     pnpm \
     uv \
-    1password-cli
+    1password-cli \
+    nono
 
+  pnpm install -g @earendil-works/pi-coding-agent
   mkdir -p ~/.docker/cli-plugins/ && ln -sf $(which docker-compose) ~/.docker/cli-plugins/
 fi
 
@@ -98,7 +100,8 @@ if [ "$install_ui" = true ]; then
     imagemagick \
     sevenzip \
     poppler \
-    deno ## needed for Peek markdown preview
+    deno
+  brew install --cask ghostty
 fi
 
 echo "Installation complete!"
