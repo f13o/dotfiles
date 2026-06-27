@@ -15,6 +15,7 @@ return {
         markdown = { 'mdformat' },
         python = { 'ruff_fix', 'ruff_format', 'ruff_organize_imports' },
         toml = { 'taplo' },
+        yaml = { 'prettierd' },
       },
       format_on_save = { lsp_format = 'fallback' },
       formatters = {
