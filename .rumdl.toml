@@ -1,0 +1,6 @@
+[global]
+line-length = 100
+
+[MD013]
+line-length = 100
+reflow = true

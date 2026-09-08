@@ -2,6 +2,12 @@ return {
   'neovim/nvim-lspconfig',
   dependencies = { 'RRethy/vim-illuminate' },
 
+  opts = {
+    servers = {
+      helm_ls = {},
+    },
+  },
+
   config = function()
     vim.diagnostic.config({
       virtual_text = true,
@@ -47,6 +53,15 @@ return {
         },
       },
     })
+
+    -- Markdown
+    vim.lsp.config('rumdl', {
+      cmd = { 'rumdl', 'server' },
+      filetypes = { 'markdown' },
+      root_markers = { '.rumdl.toml', '.git' },
+    })
+
+    vim.lsp.enable('rumdl')
 
     -- Python
 
