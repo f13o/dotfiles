@@ -1,4 +1,4 @@
-alias c=claude
+alias c=codex
 alias k=kubectl
 alias n=nvim
 alias npm=pnpm
@@ -14,7 +14,6 @@ alias cd=z
 
 # git
 alias gs="git status"
-alias gc="git checkout"
 alias gcm="git commit"
 alias gd="git diff"
 
@@ -30,3 +29,4 @@ alias jp="say -v Kyoko"
 
 # Agnostify project agent config
 alias agnostify="~/ws/p/dotfiles/utils/ai/agnostify.sh"
+alias pi="~/.pi/bin/pi-agent.sh"
