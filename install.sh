@@ -65,6 +65,7 @@ if [ "$install_dev" = true ]; then
     docker \
     docker-compose \
     docker-buildx \
+    go \
     mise \
     pnpm \
     uv \
@@ -102,6 +103,7 @@ if [ "$install_ui" = true ]; then
     poppler \
     deno
   brew install --cask ghostty
+  brew install --cask raycast
 fi
 
 echo "Installation complete!"
