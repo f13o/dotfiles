@@ -17,12 +17,8 @@ autoload -Uz compinit && compinit
 ## Aliases
 [ -f ~/.aliases ] && source ~/.aliases
 
-# Ruby
-eval "$(rbenv init -)"
-
 # z init
 eval "$(zoxide init zsh)"
-
 
 # Editor
 export EDITOR=nvim
@@ -34,10 +30,10 @@ case ":$PATH:" in
   *) export PATH="$PNPM_HOME:$PATH" ;;
 esac
 # pnpm end
-. "/Users/francis/.deno/env"
 
 fpath+=~/.zfunc; autoload -Uz compinit; compinit
 
 zstyle ':completion:*' menu select
 
 export PATH="$PATH:$(go env GOPATH)/bin" >> ~/.zshrc
+source /opt/homebrew/share/powerlevel10k/powerlevel10k.zsh-theme
