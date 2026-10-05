@@ -1,5 +1,20 @@
 # Don't forget
 
+## AI instructions
+
+Global instructions for all harnesses live in `ai/AGENTS.md`. Edit that file to
+update the shared guidelines.
+
+Install the harness links with:
+
+```sh
+stow -d ai -t ~ claude codex
+```
+
+- `ai/claude/` contains the Claude Stow package, including its skills.
+- `ai/codex/` contains the Codex Stow package.
+- `~/.claude/CLAUDE.md` and `~/.codex/AGENTS.md` resolve to `ai/AGENTS.md`.
+
 ## Keymaps
 
 Set Caps lock to Esc

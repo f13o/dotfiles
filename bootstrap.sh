@@ -6,5 +6,5 @@ sh install.sh
 
 stow -t ~/.config config/
 
-stow -t ~ git claude zsh
-
+stow -t ~ git zsh
+stow -d ai -t ~ claude codex
