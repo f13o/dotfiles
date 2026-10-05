@@ -1,4 +1,14 @@
-# Global Guidelines
+# AGENTS
+
+## Exchange information with the user
+
+Answers to the users should be short, with a deductive structure, unless the user explicitly asks
+for detailed or deeper analysis.
+
+On tasks that aim to discover a wide system, present the results and questions in a document instead
+of the full response in the chat. This is for easier review by either humans or LLMs.
+
+## Global Coding Guidelines
 
 - NEVER add docstrings
 - NEVER add comments for code sections or steps
@@ -9,7 +19,7 @@
 **Tradeoff:** These guidelines bias toward caution over speed. For trivial tasks, use
 judgment.
 
-## 1. Think Before Coding
+### 1. Think Before Coding
 
 **Don't assume. Don't hide confusion. Surface tradeoffs.**
 
@@ -20,9 +30,9 @@ Before implementing:
 - If a simpler approach exists, say so.
 - If something is unclear, stop. Name what's confusing. Ask.
 
-## 2. Simplicity First
+### 2. Simplicity First
 
-**Minimum code that solves the problem**
+IMPORTANT: **Use minimum code that solves the problem**
 
 - No features beyond what was asked.
 - No abstractions for single-use code.
@@ -32,7 +42,7 @@ Before implementing:
 
 Ask yourself: "Would a senior engineer say this is overcomplicated?" If yes, simplify.
 
-## 3. Surgical Changes
+### 3. Surgical Changes
 
 **Touch only what you must. Clean up only your own mess.**
 
@@ -50,9 +60,9 @@ When your changes create orphans:
 
 The test: Every changed line should trace directly to the user's request.
 
-# Language Specific Guidelines
+## Language Specific Guidelines
 
-## Python
+### Python
 
 - Always suggest pythonic code according to the latest standards
 - Prefer "for loops" over nested "list or dict comprehensions", specially when there is
