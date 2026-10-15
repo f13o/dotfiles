@@ -79,6 +79,11 @@ return {
 
     vim.lsp.enable('ruby_lsp')
 
+    -- Rust
+
+    vim.lsp.config('rust_analyzer', { capabilities = capabilities })
+    vim.lsp.enable('rust_analyzer')
+
     -- Swift
 
     vim.lsp.config('sourcekit', {
