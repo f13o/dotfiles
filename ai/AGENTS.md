@@ -5,8 +5,9 @@
 Answers to the users should be short, with a deductive structure, unless the user explicitly asks
 for detailed or deeper analysis.
 
-On tasks that aim to discover a wide system, present the results and questions in a document instead
-of the full response in the chat. This is for easier review by either humans or LLMs.
+On tasks that aim to discover a wide system, present the results and questions in a document at the
+project root instead of the full response in the chat. This is for easier review by either humans or
+LLMs.
 
 ## Global Coding Guidelines
 
