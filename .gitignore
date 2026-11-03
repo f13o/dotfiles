@@ -1,9 +1,2 @@
-# Pi agent runtime state (keep settings only)
-pi/.pi/agent/*
-!pi/.pi/agent/settings.json
-
-# nono state (keep tracked profile only)
-nono/.config/nono/*
-!nono/.config/nono/profiles/
-nono/.config/nono/profiles/*
-!nono/.config/nono/profiles/pi-agent.json
+.claude/settings.local.json
+utils/input-source/input-source
