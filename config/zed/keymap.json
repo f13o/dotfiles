@@ -1,0 +1,49 @@
+// Zed keymap
+//
+// For information on binding keys, see the Zed
+// documentation: https://zed.dev/docs/key-bindings
+//
+// To see the default key bindings run `zed: open default keymap`
+// from the command palette.
+[
+  {
+    "context": "Pane",
+    "bindings": {
+      // "shift shift": "file_finder::Toggle"
+      "ctrl-{": "pane::ActivatePreviousItem",
+      "ctrl-}": "pane::ActivateNextItem",
+    },
+  },
+  {
+    "context": "Editor && vim_mode == insert",
+    "bindings": {
+      // "j k": "vim::NormalBefore"
+    },
+  },
+  {
+    "context": "Editor && vim_mode != insert",
+    "bindings": {
+      "space p": "markdown::OpenPreviewToTheSide",
+      ">": "editor::Indent",
+      "<": "editor::Outdent",
+    },
+  },
+  {
+    "context": "Workspace",
+    "bindings": {
+      "ctrl-shift-h": "workspace::ActivatePaneLeft",
+      "ctrl-shift-l": "workspace::ActivatePaneRight",
+      "ctrl-shift-k": "workspace::ActivatePaneUp",
+      "ctrl-shift-j": "workspace::ActivatePaneDown",
+    },
+  },
+  {
+    "context": "MarkdownPreview",
+    "bindings": {
+      "j": "markdown::ScrollDown",
+      "k": "markdown::ScrollUp",
+      "ctrl-j": "markdown::ScrollDownByItem",
+      "ctrl-k": "markdown::ScrollUpByItem",
+    },
+  },
+]
